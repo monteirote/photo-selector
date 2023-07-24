@@ -1,10 +1,10 @@
 package com.framed.imageselector.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.framed.imageselector.models.ImagemCadastrada;
+import com.framed.imageselector.models.Imagem;
 
-public interface ImagemCadastradaRepository extends JpaRepository<ImagemCadastrada, Long> {
+public interface ImagemCadastradaRepository extends JpaRepository<Imagem, Long> {
     
-    ImagemCadastrada findByUrl(String url);
+    Imagem findByUrl(String url);
 
 }

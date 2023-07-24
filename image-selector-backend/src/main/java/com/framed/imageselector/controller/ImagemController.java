@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.framed.imageselector.models.ImagemCadastrada;
-import com.framed.imageselector.services.ImagemCadastradaService;
+import com.framed.imageselector.models.Imagem;
+import com.framed.imageselector.services.ImagemService;
 
 @RestController
 @RequestMapping("/images")
-public class ImagemCadastradaController {
+public class ImagemController {
 
-    private final ImagemCadastradaService imagemCadastradaService;
+    private final ImagemService imagemCadastradaService;
 
     @Autowired
-    public ImagemCadastradaController(ImagemCadastradaService imagemCadastradaService) {
+    public ImagemController(ImagemService imagemCadastradaService) {
         this.imagemCadastradaService = imagemCadastradaService;
     }
 
@@ -29,18 +29,13 @@ public class ImagemCadastradaController {
         return imagemCadastradaService.extractAllMetadataFromImage(imageUrl);
     }
 
-    @GetMapping("/keywords")
-    public String getImageKeywords (@RequestParam String imageUrl) {
-        return imagemCadastradaService.getKeywords(imageUrl);
-    }
-
     @PostMapping("/cadastrar")
-    public boolean cadastrarImagem(@RequestParam String url) {
-        return imagemCadastradaService.addImagem(url);
+    public void cadastrarImagem(@RequestParam String url) {
+        imagemCadastradaService.addImagem(url);
     }
 
     @GetMapping("/cadastradas")
-    public List<ImagemCadastrada> getAllImages() {
+    public List<Imagem> getAllImages() {
         return imagemCadastradaService.getAllImages();
     }
 
