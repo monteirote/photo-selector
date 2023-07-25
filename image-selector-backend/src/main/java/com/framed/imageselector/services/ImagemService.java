@@ -95,11 +95,9 @@ public class ImagemService {
             keywords.add(novaKeyword);
         }
 
-        // keywordService.saveAll(keywords);
 
         for (Keyword keyword : keywords) {
             imagem.addKeyword(keyword);
-            // keyword.addImagem(imagem);
         }
 
         imagemRepository.save(imagem);

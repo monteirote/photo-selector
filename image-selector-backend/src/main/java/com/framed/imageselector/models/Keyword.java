@@ -28,16 +28,28 @@ public class Keyword {
     public Keyword() {}
 
 
-    public Long getId() {
-        return id;
-    }
-    
     public String getCategoria() {
         return categoria;
     }
 
     public List<Imagem> getImagens() {
         return this.imagens;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setImagens(List<Imagem> imagens) {
+        this.imagens = imagens;
     }
 
     public void addImagem(Imagem imagem) {

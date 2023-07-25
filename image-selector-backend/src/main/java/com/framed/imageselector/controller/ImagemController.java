@@ -17,26 +17,26 @@ import com.framed.imageselector.services.ImagemService;
 @RequestMapping("/images")
 public class ImagemController {
 
-    private final ImagemService imagemCadastradaService;
+    private final ImagemService imagemService;
 
     @Autowired
-    public ImagemController(ImagemService imagemCadastradaService) {
-        this.imagemCadastradaService = imagemCadastradaService;
+    public ImagemController(ImagemService imagemService) {
+        this.imagemService = imagemService;
     }
 
     @GetMapping("/all-metadata")
     public Map<String, String> getImageMetadata(@RequestParam String imageUrl) {
-        return imagemCadastradaService.extractAllMetadataFromImage(imageUrl);
+        return imagemService.extractAllMetadataFromImage(imageUrl);
     }
 
     @PostMapping("/cadastrar")
     public void cadastrarImagem(@RequestParam String url) {
-        imagemCadastradaService.addImagem(url);
+        imagemService.addImagem(url);
     }
 
-    @GetMapping("/cadastradas")
+    @GetMapping("/all-images")
     public List<Imagem> getAllImages() {
-        return imagemCadastradaService.getAllImages();
+        return imagemService.getAllImages();
     }
 
 
