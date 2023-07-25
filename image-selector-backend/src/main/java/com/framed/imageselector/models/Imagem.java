@@ -42,12 +42,12 @@ public class Imagem {
 
     public void addKeyword(Keyword keyword) {
         keywords.add(keyword);
-        keyword.getImagensCadastradas().add(this);
+        keyword.getImagens().add(this);
     }
 
     public void removeKeyword(Keyword keyword) {
         keywords.remove(keyword);
-        keyword.getImagensCadastradas().remove(this);
+        keyword.getImagens().remove(this);
     }
     
     

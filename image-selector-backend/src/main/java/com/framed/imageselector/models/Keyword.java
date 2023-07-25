@@ -19,7 +19,7 @@ public class Keyword {
     String categoria;
 
     @ManyToMany(mappedBy = "keywords")
-    private List<Imagem> imagensCadastradas = new ArrayList<>();
+    private List<Imagem> imagens = new ArrayList<>();
 
     public Keyword(String categoria) {
         this.categoria = categoria;
@@ -28,25 +28,29 @@ public class Keyword {
     public Keyword() {}
 
 
+    public Long getId() {
+        return id;
+    }
+    
     public String getCategoria() {
         return categoria;
     }
 
-    public List<Imagem> getImagensCadastradas() {
-        return this.imagensCadastradas;
+    public List<Imagem> getImagens() {
+        return this.imagens;
     }
 
-    public void addImagemCadastrada(Imagem imagemCadastrada) {
-        if (imagensCadastradas == null) {
-            imagensCadastradas = new ArrayList<>();
+    public void addImagem(Imagem imagem) {
+        if (imagens == null) {
+            imagens = new ArrayList<>();
         }
-        imagensCadastradas.add(imagemCadastrada);
-        imagemCadastrada.getKeywords().add(this);
+        imagens.add(imagem);
+        imagem.getKeywords().add(this);
     }
 
-    public void removeImagemCadastrada(Imagem imagemCadastrada) {
-        imagensCadastradas.remove(imagemCadastrada);
-        imagemCadastrada.getKeywords().remove(this);
+    public void removeImagem(Imagem imagem) {
+        imagens.remove(imagem);
+        imagem.getKeywords().remove(this);
     }
 
 }

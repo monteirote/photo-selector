@@ -1,6 +1,7 @@
 package com.framed.imageselector.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.framed.imageselector.models.Imagem;
 import com.framed.imageselector.models.Keyword;
-import com.framed.imageselector.repositories.ImagemCadastradaRepository;
+import com.framed.imageselector.repositories.ImagemRepository;
 
 import java.net.URL;
 import java.util.Map;
@@ -25,13 +26,12 @@ import com.drew.metadata.Tag;
 @Service
 public class ImagemService {
 
-    private final ImagemCadastradaRepository imagemCadastradaRepository;
+    private final ImagemRepository imagemRepository;
     private final KeywordService keywordService;
 
     @Autowired
-    public ImagemService(ImagemCadastradaRepository imagemCadastradaRepository,
-            KeywordService keywordService) {
-        this.imagemCadastradaRepository = imagemCadastradaRepository;
+    public ImagemService(ImagemRepository imagemRepository, KeywordService keywordService) {
+        this.imagemRepository = imagemRepository;
         this.keywordService = keywordService;
     }
 
@@ -76,39 +76,63 @@ public class ImagemService {
 
     }
 
-    public void delete(Imagem imagemCadastrada) {
-        this.imagemCadastradaRepository.delete(imagemCadastrada);
+    public void delete(Imagem imagem) {
+        this.imagemRepository.delete(imagem);
     }
 
-    public void addImagem(String imageUrl) {
-        Imagem novaImagem = createImagemCadastrada(imageUrl);
-        imagemCadastradaRepository.save(novaImagem);
-        List<String> keywords = getKeywords(novaImagem);
-        keywords.forEach(data -> {
-            Keyword kw = keywordService.createKeyword(data);
-            novaImagem.addKeyword(kw);
-            kw.addImagemCadastrada(novaImagem);
-        });
+    public String addImagem(String imageUrl) {
+
+        Imagem imagem = createImagem(imageUrl);
+        if (imagem == null) {
+            return "Essa url não é válida.";
+        }
+
+        List<String> palavrasChave = getKeywords(imagem);
+        List<Keyword> keywords = new ArrayList<>();
+
+        for (String palavra : palavrasChave) {
+            Keyword novaKeyword = keywordService.createKeyword(palavra);
+            keywords.add(novaKeyword);
+        }
+
+        // keywordService.saveAll(keywords);
+
+        for (Keyword keyword : keywords) {
+            imagem.addKeyword(keyword);
+            // keyword.addImagem(imagem);
+        }
+
+        imagemRepository.save(imagem);
+        return "Processo de cadastro concluído.";
+    }
+
+    private Imagem createImagem(String url) {
+
+        if (urlIsNotValid(url)) {
+            return null;
+        }
+
+        Imagem novaImagem = imagemRepository.findByUrl(url);
+        
+
+        if (novaImagem == null) {
+            novaImagem = new Imagem(url);
+            novaImagem = imagemRepository.save(novaImagem);
+        }
+
+        return novaImagem;
     }
 
     public List<Imagem> getAllImages() {
-        return imagemCadastradaRepository.findAll();
+        return imagemRepository.findAll();
     }
 
-    private boolean urlIsValid(String url) {
+    private boolean urlIsNotValid(String url) {
         try {
             new java.net.URL(url);
-            return true;
-        } catch (java.net.MalformedURLException e) {
             return false;
+        } catch (java.net.MalformedURLException e) {
+            return true;
         }
     }
-
-    private Imagem createImagemCadastrada(String url) {
-        if (imagemCadastradaRepository.findByUrl(url) != null || !urlIsValid(url)) {
-            return imagemCadastradaRepository.findByUrl(url);
-        }
-        return imagemCadastradaRepository.save(new Imagem(url));
-    }
-
 }

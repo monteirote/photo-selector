@@ -18,17 +18,27 @@ public class KeywordService {
         this.keywordRepository = keywordRepository;
     }
 
-    public Keyword createKeyword(String keyword) {
-        if (keywordRepository.findByCategoria(keyword) != null) {
-            return keywordRepository.findByCategoria(keyword);
-        }
-        
-        return keywordRepository.save(new Keyword(keyword));
-    }
-
-
     public List<Keyword> getAllKeywords() {
         return this.keywordRepository.findAll();
+    }
+
+    public Keyword findByCategoria(String categoria) {
+        return this.keywordRepository.findByCategoria(categoria);
+    }
+
+    public Keyword createKeyword(String categoria) {
+        Keyword novaKeyword = keywordRepository.findByCategoria(categoria);
+
+        if (novaKeyword == null) {
+            novaKeyword = new Keyword(categoria);
+            novaKeyword = keywordRepository.save(novaKeyword);
+        }
+
+        return novaKeyword;
+    }
+
+    public void saveAll(List<Keyword> keywords) {
+        this.keywordRepository.saveAll(keywords);
     }
  
     
