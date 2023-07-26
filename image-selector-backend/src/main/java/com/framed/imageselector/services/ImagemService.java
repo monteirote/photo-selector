@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.drew.metadata.Metadata;
@@ -137,19 +135,31 @@ public class ImagemService {
     }
 
     public boolean addCategoriaToImagem(Long idImagem, String categoria) {
-
         Optional<Imagem> img = findById(idImagem);
-        if (img.isEmpty()) return false;
+        
+        if (img.isEmpty()) {
+            return false;
+        }
         
         Keyword kw = keywordService.findByCategoria(categoria);
+
+        if (img.get().getKeywords().contains(kw)) {
+            return false;
+        }
+
         if (kw == null) {
             kw = keywordService.createKeyword(categoria);
         }
+        
 
         img.get().addKeyword(kw);
         imagemRepository.save(img.get());
         return true;
 
+    }
+
+    public void save(Imagem imagem) {
+        this.imagemRepository.save(imagem);
     }
 
 

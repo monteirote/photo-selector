@@ -40,6 +40,10 @@ public class KeywordService {
     public void saveAll(List<Keyword> keywords) {
         this.keywordRepository.saveAll(keywords);
     }
+
+    public void delete(Keyword keyword) {
+        this.keywordRepository.delete(keyword);
+    }
  
     
 }

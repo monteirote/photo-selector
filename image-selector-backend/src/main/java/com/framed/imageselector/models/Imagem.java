@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +21,7 @@ public class Imagem {
 
     String url;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "imagem_keyword", joinColumns = @JoinColumn(name = "imagem_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
     private List<Keyword> keywords = new ArrayList<>();
 
