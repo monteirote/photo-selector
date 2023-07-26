@@ -3,20 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MetadataExtractorComponent } from './components/metadata-extractor/metadata-extractor.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FirstComponentComponent } from './components/first-component/first-component.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MetadataExtractorComponent,
+    FirstComponentComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    AppRoutingModule,
     HttpClientModule,
-    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

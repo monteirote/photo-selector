@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "photo-selector-frontend": {
+    "image-selector": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/photo-selector-frontend",
+            "outputPath": "dist/image-selector",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,13 +27,12 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/exif-js/exif.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "budgets": [{
+              "budgets": [
+                {
                   "type": "initial",
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
@@ -61,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "photo-selector-frontend:build:production"
+              "browserTarget": "image-selector:build:production"
             },
             "development": {
-              "browserTarget": "photo-selector-frontend:build:development"
+              "browserTarget": "image-selector:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "photo-selector-frontend:build"
+            "browserTarget": "image-selector:build"
           }
         },
         "test": {

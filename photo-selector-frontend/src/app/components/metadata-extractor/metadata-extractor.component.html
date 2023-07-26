@@ -1,8 +1,0 @@
-<form (submit)="extractMetadata()">
-  <input type="text" [(ngModel)]="photoUrl" placeholder="Insira a URL da foto">
-  <button type="submit">Extrair Metadados</button>
-</form>
-
-<div *ngIf="metadata">
-  <pre>{{ metadata | json }}</pre>
-</div>
