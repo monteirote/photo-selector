@@ -3,6 +3,9 @@ package com.framed.imageselector.controller;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +26,12 @@ public class KeywordController {
     }
 
     @GetMapping("/exibir/{categoria}")
-    public List<Imagem> getAllImagesFromCategoria(@PathVariable String categoria) {
+    public ResponseEntity<List<Imagem>> getAllImagesFromCategoria(@PathVariable String categoria) {
         Keyword kw = this.keywordService.findByCategoria(categoria);
         if (kw == null) {
-            return Collections.emptyList();
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        return kw.getImagens();
+        return ResponseEntity.ok(kw.getImagens());
     }
 
     

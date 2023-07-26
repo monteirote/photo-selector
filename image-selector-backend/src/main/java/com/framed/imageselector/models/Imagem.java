@@ -3,8 +3,6 @@ package com.framed.imageselector.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,10 +21,7 @@ public class Imagem {
     String url;
 
     @ManyToMany
-    @JoinTable(name = "imagem_keyword",
-               joinColumns = @JoinColumn(name = "imagem_id"),
-               inverseJoinColumns = @JoinColumn(name = "keyword_id"))
-    @JsonIgnore
+    @JoinTable(name = "imagem_keyword", joinColumns = @JoinColumn(name = "imagem_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
     private List<Keyword> keywords = new ArrayList<>();
 
 
@@ -63,6 +58,7 @@ public class Imagem {
         this.keywords = keywords;
     }
 
+    //OUTROS MÉTODOS
     public void addKeyword(Keyword keyword) {
         keywords.add(keyword);
         keyword.getImagens().add(this);

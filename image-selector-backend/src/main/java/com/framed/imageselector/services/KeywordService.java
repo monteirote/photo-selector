@@ -30,7 +30,7 @@ public class KeywordService {
         Keyword novaKeyword = keywordRepository.findByCategoria(categoria);
 
         if (novaKeyword == null) {
-            novaKeyword = new Keyword(categoria);
+            novaKeyword = new Keyword(categoria.toLowerCase().replace(" ", "-"));
             novaKeyword = keywordRepository.save(novaKeyword);
         }
 

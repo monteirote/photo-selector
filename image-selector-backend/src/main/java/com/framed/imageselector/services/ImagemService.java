@@ -16,8 +16,11 @@ import com.framed.imageselector.repositories.ImagemRepository;
 
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.drew.metadata.Metadata;
@@ -80,11 +83,12 @@ public class ImagemService {
         this.imagemRepository.delete(imagem);
     }
 
-    public String addImagem(String imageUrl) {
+    public Long addImagem(String imageUrl) {
 
         Imagem imagem = createImagem(imageUrl);
+
         if (imagem == null) {
-            return "Essa url não é válida.";
+            return null;
         }
 
         List<String> palavrasChave = getKeywords(imagem);
@@ -97,28 +101,22 @@ public class ImagemService {
 
 
         for (Keyword keyword : keywords) {
-            imagem.addKeyword(keyword);
+            if (!imagem.getKeywords().contains(keyword)) {
+                imagem.addKeyword(keyword);
+            }
         }
 
         imagemRepository.save(imagem);
-        return "Processo de cadastro concluído.";
+        return imagem.getId();
     }
 
     private Imagem createImagem(String url) {
 
-        if (urlIsNotValid(url)) {
+        if (urlIsNotValid(url) || imagemRepository.findByUrl(url) != null ) {
             return null;
         }
-
-        Imagem novaImagem = imagemRepository.findByUrl(url);
         
-
-        if (novaImagem == null) {
-            novaImagem = new Imagem(url);
-            novaImagem = imagemRepository.save(novaImagem);
-        }
-
-        return novaImagem;
+        return imagemRepository.save(new Imagem(url));
     }
 
     public List<Imagem> getAllImages() {
@@ -133,4 +131,26 @@ public class ImagemService {
             return true;
         }
     }
+
+    public Optional<Imagem> findById(Long id) {
+        return imagemRepository.findById(id);
+    }
+
+    public boolean addCategoriaToImagem(Long idImagem, String categoria) {
+
+        Optional<Imagem> img = findById(idImagem);
+        if (img.isEmpty()) return false;
+        
+        Keyword kw = keywordService.findByCategoria(categoria);
+        if (kw == null) {
+            kw = keywordService.createKeyword(categoria);
+        }
+
+        img.get().addKeyword(kw);
+        imagemRepository.save(img.get());
+        return true;
+
+    }
+
+
 }
