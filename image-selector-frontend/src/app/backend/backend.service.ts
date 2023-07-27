@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Imagem } from '../models/imagem';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class BackendService{
 
   constructor(private http: HttpClient) {}
 
-  getAllImages(): Observable<any> {
-    return this.http.get<any>(`${this.url}/images/all-images`);
+  getAllImages(): Observable<Imagem[]> {
+    return this.http.get<Imagem[]>(`${this.url}/images/all-images`);
   }
 
 

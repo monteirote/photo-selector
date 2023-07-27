@@ -80,28 +80,8 @@ public class ImagemController {
         return ResponseEntity.badRequest().build();
     }
 
-    // @DeleteMapping("/delete-image/{id}")
-    // public ResponseEntity<Void> deleteImagem(@PathVariable Long id) {
-
-    //     Optional<Imagem> imgToDelete = imagemService.findById(id);
-    //     if (imgToDelete.isEmpty()) {
-    //         return ResponseEntity.badRequest().build();
-    //     }
-
-
-    //     imgToDelete.get().getKeywords().forEach(keyword -> {
-    //         if (keyword.getImagens().isEmpty()) {
-    //             keywordService.delete(keyword);
-    //         }
-    //     });
-
-    //     imagemService.delete(imgToDelete.get());
-    //     return ResponseEntity.ok().build();
-
-    // }
-
     @DeleteMapping("/delete-image/{id}")
-public ResponseEntity<Void> deleteImagem(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteImagem(@PathVariable Long id) {
 
     Optional<Imagem> imgToDelete = imagemService.findById(id);
     if (imgToDelete.isEmpty()) {
@@ -110,18 +90,15 @@ public ResponseEntity<Void> deleteImagem(@PathVariable Long id) {
 
     List<Keyword> keywordList = imgToDelete.get().getKeywords();
 
-    // Remove a associação da imagem com as keywords
     imgToDelete.get().setKeywords(Collections.emptyList());
     imagemService.save(imgToDelete.get());
 
-    // Exclui as keywords associadas à imagem
     keywordList.forEach(keyword -> {
         if (keyword.getImagens().isEmpty()) {
             keywordService.delete(keyword);
         }
     });
 
-    // Exclui a imagem
     imagemService.delete(imgToDelete.get());
 
     return ResponseEntity.ok().build();
