@@ -1,0 +1,12 @@
+.main-container {
+
+}
+
+header {
+  display: flex;
+  background-color: green;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}

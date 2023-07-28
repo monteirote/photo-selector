@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupCadastroComponent } from '../popup-cadastro/popup-cadastro.component';
 
 @Component({
   selector: 'app-main-toolbar',
@@ -13,5 +15,10 @@ export class MainToolbarComponent {
     this.navSidebar.emit();
   }
 
+  constructor(public dialog: MatDialog) {}
+
+  openCadastroPopup() {
+    this.dialog.open(PopupCadastroComponent)
+  }
 
 }
