@@ -10,13 +10,18 @@ import { MainToolbarComponent } from './components/main-toolbar/main-toolbar.com
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { GaleriaComponent } from './components/galeria/galeria.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FirstComponentComponent,
-    MainToolbarComponent
+    MainToolbarComponent,
+    GaleriaComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +31,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatSidenavModule,
+    NoopAnimationsModule,
+    OverlayModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

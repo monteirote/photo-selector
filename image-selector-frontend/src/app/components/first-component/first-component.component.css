@@ -1,18 +1,11 @@
-.imagem-container {
+.example-container {
+  width: 100%;
+  height: 90%;
+}
+
+mat-drawer-content {
+  padding: 12px;
   display: flex;
-  justify-content: space-between;
-}
-
-ngx-masonry {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.masonry-item {
-  flex-basis: calc(10% - 100px);
-  border: none;
-}
-
-.image-item {
-  height: 190px;
+  flex-direction: column;
+  align-items: flex-start;
 }

@@ -1,7 +1,15 @@
-<ngx-masonry class="imagem-container">
-  <ng-container *ngFor="let imagem of images">
-    <a class="masonry-item" [href]="imagem.url">
-      <img [src]="imagem.url" alt="Imagem" class="image-item">
-    </a>
-  </ng-container>
-</ngx-masonry>
+<div class="app-container">
+  <button (click)="toggleDrawer()"></button>
+
+  <app-galeria></app-galeria>
+
+  <mat-drawer-container class="drawer-container" [hasBackdrop]="true">
+    <mat-drawer #drawer *ngIf="isDrawerOpen" class="custom-drawer">
+      <!-- Conteúdo do Drawer aqui -->
+    </mat-drawer>
+
+    <mat-drawer-content class="drawer-content">
+      <!-- Outro conteúdo do mat-drawer-content aqui, se necessário -->
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

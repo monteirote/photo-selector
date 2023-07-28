@@ -1,16 +1,16 @@
 import { BackendService } from './../../backend/backend.service';
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input, OnInit } from '@angular/core';
 import { Imagem } from 'src/app/models/imagem';
 
 @Component({
   selector: 'app-first-component',
   templateUrl: './first-component.component.html',
-  styleUrls: ['./first-component.component.css']
+  styleUrls: ['./first-component.component.css'],
 })
 export class FirstComponentComponent implements OnInit {
-
   constructor(private service: BackendService) {}
+
+  @Input() navSidebarAtiva!: boolean;
 
   images!: Imagem[];
 
@@ -28,11 +28,14 @@ export class FirstComponentComponent implements OnInit {
         (error) => {
           reject(error);
         }
-      )
-    })
+      );
+    });
   }
 
+  public isDrawerOpen = true;
 
-
-
+  public toggleDrawer(): void {
+    this.isDrawerOpen = !this.isDrawerOpen;
+    console.log(this.isDrawerOpen)
+  }
 }

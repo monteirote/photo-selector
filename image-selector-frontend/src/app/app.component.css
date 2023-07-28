@@ -1,0 +1,23 @@
+.mat-sidenav-container {
+  height: 100%;
+}
+
+.example-sidenav {
+  width: 300px;
+  background-color: #f0f0f0;
+  transition: all 0.5;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  padding-top: 2px;
+  height: 27px;
+  padding-left: 12px;
+}
+

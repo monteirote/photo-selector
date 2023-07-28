@@ -2,3 +2,14 @@
   flex: 1 1 auto;
 }
 
+.navigation-bar {
+  height: 40px;
+}
+
+.logo {
+  padding-top: 2px;
+  height: 27px;
+  padding-left: 12px;
+}
+
+

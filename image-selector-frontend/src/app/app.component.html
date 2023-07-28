@@ -1,2 +1,17 @@
-<app-main-toolbar></app-main-toolbar>
-<app-first-component></app-first-component>
+<mat-sidenav-container>
+
+  <mat-sidenav #sidenavRef mode="over" [opened]="isSidenavOpen" (backdropClick)="onBackdropClick()" class="example-sidenav" [class.sidenav-open]="isSidenavOpen">
+    <button mat-icon-button class="example-icon" (click)="onNavSidebarToggle()" >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span style="display: flex; justify-content: center">
+      <img src="assets/logo.png" class="logo"/>
+    </span>
+  </mat-sidenav>
+
+  <div class="app-content">
+    <app-main-toolbar (navSidebar)="onNavSidebarToggle()"></app-main-toolbar>
+    <app-galeria></app-galeria>
+  </div>
+
+</mat-sidenav-container>
