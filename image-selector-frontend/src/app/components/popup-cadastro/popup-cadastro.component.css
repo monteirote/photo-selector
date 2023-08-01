@@ -1,12 +1,21 @@
-.main-container {
-
+mat-stepper {
+  margin: 10px;
 }
 
-header {
+.box-botoes {
   display: flex;
-  background-color: green;
-  font-size: 40px;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.barra-inteira {
+  width: 100%;
+}
+
+.error {
+  color: red
+}
+
+.foto-exemplo {
+  height: 200px;
 }

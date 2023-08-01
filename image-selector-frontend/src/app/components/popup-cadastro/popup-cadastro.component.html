@@ -1,4 +1,44 @@
-<div class="main-container">
-  <header> Cadastro de Imagem </header>
+  <mat-stepper>
 
-</div>
+    <!-- adicionar foto -->
+    <mat-step>
+      <ng-template matStepLabel>Adicionar foto</ng-template>
+
+      <form [formGroup]="imageFormulario" class="example-form">
+
+        <mat-form-field class="barra-inteira">
+          <mat-label>Foto (URL)</mat-label>
+          <input matInput formControlName="fotoUrl">
+        </mat-form-field>
+        <div *ngIf="isUrlValid == false" class="error">Campo vazio ou URL inválida.</div>
+
+        <div class="box-botoes">
+          <button mat-button (click)="onNextStep(fotoUrl?.value)">Próximo</button>
+        </div>
+      </form>
+
+    </mat-step>
+
+    <!-- adicionar categorias -->
+    <mat-step>
+      <ng-template matStepLabel>Adicionar categorias</ng-template>
+      <img [src]="urlImage" class="foto-exemplo">
+
+
+      <div class="box-botoes">
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button matStepperNext>Próximo</button>
+      </div>
+    </mat-step>
+
+    <!-- revisao -->
+    <mat-step>
+      <ng-template matStepLabel>Revisão</ng-template>
+
+      <div class="box-botoes">
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button (click)="onSubmit()">Cadastrar</button>
+      </div>
+    </mat-step>
+
+  </mat-stepper>

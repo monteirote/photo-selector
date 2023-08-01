@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BackendService } from 'src/app/backend/backend.service';
 import { Imagem } from 'src/app/models/imagem';
 
@@ -11,7 +12,7 @@ export class GaleriaComponent implements OnInit {
 
   images!: Imagem[];
 
-  constructor(private service: BackendService) {}
+  constructor(private service: BackendService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     this.images = await this.getAllImages();

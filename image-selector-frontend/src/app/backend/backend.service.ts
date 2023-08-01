@@ -16,5 +16,9 @@ export class BackendService{
     return this.http.get<Imagem[]>(`${this.url}/images/all-images`);
   }
 
+  getImageById(id: number) {
+    return this.http.get<Imagem>(`${this.url}/images/imagem/${id}`);
+  }
+
 
 }

@@ -1,6 +1,6 @@
 <ngx-masonry class="imagem-container">
   <ng-container *ngFor="let imagem of images">
-    <a class="masonry-item" [href]="imagem.url">
+    <a class="masonry-item" [routerLink]="['/image', imagem.id]">
       <img [src]="imagem.url" alt="Imagem" class="image-item">
     </a>
   </ng-container>

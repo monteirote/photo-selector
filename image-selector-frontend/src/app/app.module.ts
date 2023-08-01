@@ -15,6 +15,13 @@ import { GaleriaComponent } from './components/galeria/galeria.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PopupCadastroComponent } from './components/popup-cadastro/popup-cadastro.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { ImagemExpandidaComponent } from './components/imagem-expandida/imagem-expandida.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 
 
 @NgModule({
@@ -22,7 +29,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     MainToolbarComponent,
     GaleriaComponent,
-    PopupCadastroComponent
+    PopupCadastroComponent,
+    ImagemExpandidaComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +46,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     OverlayModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

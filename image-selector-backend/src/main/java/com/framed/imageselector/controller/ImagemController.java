@@ -104,5 +104,16 @@ public class ImagemController {
     return ResponseEntity.ok().build();
 }
 
+@GetMapping("/imagem/{id}")
+public ResponseEntity<CustomImagem> findById(@PathVariable Long id) {
+    Optional<Imagem> img = this.imagemService.findById(id);
+    if (img.isPresent()) {
+        CustomImagem result = new CustomImagem(img.get().getId(), img.get().getUrl(), img.get().getKeywords());
+        return ResponseEntity.ok().body(result);
+    } else {
+        return ResponseEntity.ok().body(null);
+    }
+}
+
 
 }
