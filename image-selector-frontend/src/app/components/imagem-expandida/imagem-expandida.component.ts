@@ -14,7 +14,7 @@ export class ImagemExpandidaComponent implements OnInit {
 
   imageId!: any;
   imagemExibida!: Imagem;
-  keywordsImagem!: String[];
+  keywordsImagem!: string[];
   isLoading: boolean = true;
 
   ngOnInit(): void {

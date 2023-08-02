@@ -20,5 +20,9 @@ export class BackendService{
     return this.http.get<Imagem>(`${this.url}/images/imagem/${id}`);
   }
 
+  getKeywordsFromUrl(url: string) {
+    return this.http.get<String[]>(`${this.url}/images/get-keywords?url=${url}`)
+  }
+
 
 }

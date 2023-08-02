@@ -77,6 +77,24 @@ public class ImagemService {
 
     }
 
+    public List<String> getKeywordsFromUrl(String imagemUrl) {
+        try {
+            URL url = new URL(imagemUrl);
+            Metadata metadata = ImageMetadataReader.readMetadata(url.openStream());
+            for (Directory directory : metadata.getDirectories()) {
+                for (Tag tag : directory.getTags()) {
+                    if (tag.getTagName().equals("Keywords")) {
+                        return Arrays.asList(tag.getDescription().split(";"));
+                    }
+                }
+            }
+        } catch (IOException | ImageProcessingException erro) {
+            System.out.println("Erro ao ler os metadados da imagem: " + erro.getMessage());
+        }
+        return Collections.emptyList();
+
+    }
+    
     public void delete(Imagem imagem) {
         this.imagemRepository.delete(imagem);
     }

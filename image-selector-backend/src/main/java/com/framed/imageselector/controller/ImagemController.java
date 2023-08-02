@@ -40,8 +40,8 @@ public class ImagemController {
     }
 
     @GetMapping("/get-keywords")
-    public ResponseEntity<Map<String, String>> getImageMetadata(@RequestParam String imageUrl) {
-        Map<String, String> result = imagemService.extractAllMetadataFromImage(imageUrl);
+    public ResponseEntity<List<String>> getImageMetadata(@RequestParam String url) {
+        List<String> result = imagemService.getKeywordsFromUrl(url);
         return ResponseEntity.ok(result);
     }
 

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { BackendService } from 'src/app/backend/backend.service';
 
 @Component({
   selector: 'app-popup-cadastro',
@@ -11,7 +12,7 @@ export class PopupCadastroComponent {
   @ViewChild(MatStepper) stepper!: MatStepper;
   imageFormulario: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private service: BackendService) {
     this.imageFormulario = this.formBuilder.group({
       fotoUrl: ['', [Validators.required, ]],
     });
@@ -19,11 +20,16 @@ export class PopupCadastroComponent {
 
   urlImage: string = '';
   isUrlValid!: boolean;
+  keywordsList!: String[];
+  keywordIsLoading: boolean = true;
 
   isValidURL(url: string): boolean {
     try {
       new URL(url);
-      return true;
+      if (this.checkURL(url)) {
+        return true;
+      }
+      return false;
     } catch (error) {
       return false;
     }
@@ -34,15 +40,37 @@ export class PopupCadastroComponent {
   }
 
   onSubmit() {
-    // Lógica para o envio do formulário, se necessário
+
   }
 
-  onNextStep(newUrl: string) {
+  toSecondStep(newUrl: string) {
     this.urlImage = newUrl;
     if ((this.urlImage.trim() == '') || !this.isValidURL(this.urlImage)) {
       this.isUrlValid = false;
       return;
     }
     this.stepper.next();
+    this.getKeywords(this.urlImage)
   }
+
+  checkURL(url: string) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+  }
+
+  getKeywords(url: string) {
+    this.service.getKeywordsFromUrl(url).subscribe(
+      (result) => {
+        this.keywordsList = result;
+        console.log(result);
+        this.keywordIsLoading = false;
+      },
+      (error) => {
+        return error;
+      }
+    )
+  }
+
+
 }
+
+

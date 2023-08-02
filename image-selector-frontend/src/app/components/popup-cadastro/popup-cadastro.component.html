@@ -10,10 +10,11 @@
           <mat-label>Foto (URL)</mat-label>
           <input matInput formControlName="fotoUrl">
         </mat-form-field>
+
         <div *ngIf="isUrlValid == false" class="error">Campo vazio ou URL inválida.</div>
 
         <div class="box-botoes">
-          <button mat-button (click)="onNextStep(fotoUrl?.value)">Próximo</button>
+          <button mat-button (click)="toSecondStep(fotoUrl?.value)">Próximo</button>
         </div>
       </form>
 
@@ -22,7 +23,37 @@
     <!-- adicionar categorias -->
     <mat-step>
       <ng-template matStepLabel>Adicionar categorias</ng-template>
-      <img [src]="urlImage" class="foto-exemplo">
+
+      <div style="display: flex; flex-direction: column;">
+
+
+        <div class="main-display">
+          <div class="image-display">
+            <img [src]="urlImage" class="foto-exemplo">
+          </div>
+
+        <div class="keywords-display">
+
+          <div>
+            <header>Tags da Imagem</header>
+
+
+            <ngx-masonry class="keywords-list">
+              <ng-container *ngFor="let keyword of keywordsList" class="keyword">
+                <div class="keyword"> {{ keyword }} </div>
+              </ng-container>
+            </ngx-masonry>
+          </div>
+        </div>
+
+      </div>
+      <div class="add-tags">
+        Adicione mais TAGs!
+        <input matInput formControlName="fotoUrl">
+      </div>
+    </div>
+
+
 
 
       <div class="box-botoes">
