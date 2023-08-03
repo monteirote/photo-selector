@@ -12,15 +12,15 @@ export class BackendService{
 
   constructor(private http: HttpClient) {}
 
-  getAllImages(): Observable<Imagem[]> {
+  public getAllImages(): Observable<Imagem[]> {
     return this.http.get<Imagem[]>(`${this.url}/images/all-images`);
   }
 
-  getImageById(id: number) {
+  public getImageById(id: number) {
     return this.http.get<Imagem>(`${this.url}/images/imagem/${id}`);
   }
 
-  getKeywordsFromUrl(url: string) {
+  public getKeywordsFromUrl(url: string) {
     return this.http.get<String[]>(`${this.url}/images/get-keywords?url=${url}`)
   }
 

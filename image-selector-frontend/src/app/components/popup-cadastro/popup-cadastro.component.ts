@@ -19,9 +19,15 @@ export class PopupCadastroComponent {
   }
 
   urlImage: string = '';
+
   isUrlValid!: boolean;
-  keywordsList!: String[];
+
+  keywordsPadrao!: String[];
+  newKeywords: String[] = [];
   keywordIsLoading: boolean = true;
+  newKeyword: string = '';
+
+  textoDoInputTags: string = '';
 
   isValidURL(url: string): boolean {
     try {
@@ -60,7 +66,7 @@ export class PopupCadastroComponent {
   getKeywords(url: string) {
     this.service.getKeywordsFromUrl(url).subscribe(
       (result) => {
-        this.keywordsList = result;
+        this.keywordsPadrao = result;
         console.log(result);
         this.keywordIsLoading = false;
       },
@@ -68,6 +74,32 @@ export class PopupCadastroComponent {
         return error;
       }
     )
+  }
+
+  onInputTag() {
+    const categoria = (document.getElementsByName('newTag')[0] as HTMLInputElement).value;
+    this.addNewTag(categoria);
+    this.newKeyword = '';
+  }
+
+  checagemPadrao: String[] = [];
+  checagemNovas: String[] = [];
+  private addNewTag(tag: string) {
+
+    this.keywordsPadrao.forEach((keyword: String) => {
+      this.checagemPadrao.push(keyword.toLowerCase());
+    })
+    this.newKeywords.forEach((keyword: String) => {
+      this.checagemNovas.push(keyword.toLowerCase());
+    })
+
+    if (this.checagemPadrao.includes(tag.toLowerCase()) || this.checagemNovas.includes(tag.toLowerCase())) return;
+    this.keywordsPadrao.push(tag);
+    this.newKeywords.push(tag);
+  }
+
+  onRemoveTag(tag: String) {
+    // fazer com que a string escolhida seja removida dos dois arrays
   }
 
 

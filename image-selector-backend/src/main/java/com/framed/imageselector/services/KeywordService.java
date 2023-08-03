@@ -1,6 +1,7 @@
 package com.framed.imageselector.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +23,20 @@ public class KeywordService {
         return this.keywordRepository.findAll();
     }
 
-    public Keyword findByCategoria(String categoria) {
+    public Optional<Keyword> findByCategoria(String categoria) {
         return this.keywordRepository.findByCategoria(categoria);
     }
 
     public Keyword createKeyword(String categoria) {
-        Keyword novaKeyword = keywordRepository.findByCategoria(categoria);
-
-        if (novaKeyword == null) {
-            novaKeyword = new Keyword(categoria.toLowerCase().replace(" ", "-"));
-            novaKeyword = keywordRepository.save(novaKeyword);
+        Optional<Keyword> novaKeyword = keywordRepository.findByCategoria(categoria);
+        Keyword keywordToSave;
+        if (novaKeyword.isEmpty()) {           
+            keywordToSave = new Keyword(categoria.toLowerCase().replace(" ", "-"));
+            keywordToSave = keywordRepository.save(keywordToSave);
+            return keywordToSave;
         }
 
-        return novaKeyword;
+        return null;       
     }
 
     public void saveAll(List<Keyword> keywords) {

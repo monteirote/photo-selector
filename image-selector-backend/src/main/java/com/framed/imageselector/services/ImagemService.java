@@ -159,21 +159,24 @@ public class ImagemService {
             return false;
         }
         
-        Keyword kw = keywordService.findByCategoria(categoria);
+        Optional<Keyword> optionalKw = keywordService.findByCategoria(categoria);
 
+        Keyword kw = null;
+        if (optionalKw.isEmpty()) {
+            kw = keywordService.createKeyword(categoria);
+        } else {
+            kw = optionalKw.get();
+        }
+        
         if (img.get().getKeywords().contains(kw)) {
             return false;
         }
 
-        if (kw == null) {
-            kw = keywordService.createKeyword(categoria);
-        }
         
 
         img.get().addKeyword(kw);
         imagemRepository.save(img.get());
         return true;
-
     }
 
     public void save(Imagem imagem) {

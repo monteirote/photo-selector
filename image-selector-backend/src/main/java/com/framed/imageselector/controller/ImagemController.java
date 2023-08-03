@@ -3,7 +3,6 @@ package com.framed.imageselector.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +70,7 @@ public class ImagemController {
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping("/add-categoria")
+    @PostMapping("/add-categoria")
     public ResponseEntity<Void> addCategoriaToImagem(@RequestParam Long id, @RequestParam String categoria) {
         boolean result = imagemService.addCategoriaToImagem(id, categoria);
         if (result) {
@@ -111,7 +110,7 @@ public ResponseEntity<CustomImagem> findById(@PathVariable Long id) {
         CustomImagem result = new CustomImagem(img.get().getId(), img.get().getUrl(), img.get().getKeywords());
         return ResponseEntity.ok().body(result);
     } else {
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.badRequest().body(null);
     }
 }
 

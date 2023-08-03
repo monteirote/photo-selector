@@ -61,8 +61,11 @@ public class Imagem {
 
     //OUTROS MÉTODOS
     public void addKeyword(Keyword keyword) {
-        keywords.add(keyword);
-        keyword.getImagens().add(this);
+        if (keyword != null) {
+            keywords.add(keyword);
+            keyword.getImagens().add(this);
+        }
+
     }
 
     public void removeKeyword(Keyword keyword) {

@@ -1,6 +1,7 @@
 package com.framed.imageselector.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -33,6 +34,9 @@ public class Keyword {
     }
 
     public List<Imagem> getImagens() {
+        if (this.imagens == null) {
+            return Collections.emptyList();
+        }
         return this.imagens;
     }
 

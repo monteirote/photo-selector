@@ -1,75 +1,70 @@
-  <mat-stepper>
+<mat-stepper>
+  <!-- adicionar foto -->
+  <mat-step>
+    <ng-template matStepLabel>Adicionar foto</ng-template>
 
-    <!-- adicionar foto -->
-    <mat-step>
-      <ng-template matStepLabel>Adicionar foto</ng-template>
+    <form [formGroup]="imageFormulario" class="example-form">
+      <mat-form-field class="barra-inteira">
+        <mat-label>Foto (URL)</mat-label>
+        <input matInput formControlName="fotoUrl" />
+      </mat-form-field>
 
-      <form [formGroup]="imageFormulario" class="example-form">
+      <div *ngIf="isUrlValid == false" class="error">
+        Campo vazio ou URL inválida.
+      </div>
 
-        <mat-form-field class="barra-inteira">
-          <mat-label>Foto (URL)</mat-label>
-          <input matInput formControlName="fotoUrl">
-        </mat-form-field>
+      <div class="box-botoes">
+        <button mat-button (click)="toSecondStep(fotoUrl?.value)">
+          Próximo
+        </button>
+      </div>
+    </form>
+  </mat-step>
 
-        <div *ngIf="isUrlValid == false" class="error">Campo vazio ou URL inválida.</div>
+  <!-- adicionar categorias -->
+  <mat-step>
+    <ng-template matStepLabel>Adicionar categorias</ng-template>
 
-        <div class="box-botoes">
-          <button mat-button (click)="toSecondStep(fotoUrl?.value)">Próximo</button>
-        </div>
-      </form>
+    <div class="main-display">
 
-    </mat-step>
+      <div class="image-display">
+        <img [src]="urlImage" class="foto-exemplo" />
+      </div>
 
-    <!-- adicionar categorias -->
-    <mat-step>
-      <ng-template matStepLabel>Adicionar categorias</ng-template>
-
-      <div style="display: flex; flex-direction: column;">
-
-
-        <div class="main-display">
-          <div class="image-display">
-            <img [src]="urlImage" class="foto-exemplo">
-          </div>
-
-        <div class="keywords-display">
-
-          <div>
-            <header>Tags da Imagem</header>
-
-
-            <ngx-masonry class="keywords-list">
-              <ng-container *ngFor="let keyword of keywordsList" class="keyword">
-                <div class="keyword"> {{ keyword }} </div>
-              </ng-container>
-            </ngx-masonry>
-          </div>
+      <div class="tag-display">
+        <div class="show-tags">
+          <header>Tags da Imagem</header>
+          <ngx-masonry class="keywords-list">
+            <ng-container *ngFor="let keyword of keywordsPadrao" class="keyword">
+              <button mat-button class="keyword" (click)="onRemoveTag(keyword)">{{ keyword }}</button>
+            </ng-container>
+          </ngx-masonry>
         </div>
 
+        <div class="add-tags">
+          Adicione mais TAGs!
+          <form (ngSubmit)="onInputTag()">
+            <input type="text" id="newTag" name="newTag" [(ngModel)]="newKeyword"/>
+          </form>
+        </div>
       </div>
-      <div class="add-tags">
-        Adicione mais TAGs!
-        <input matInput formControlName="fotoUrl">
-      </div>
+
     </div>
 
+    <div class="box-botoes">
+      <button mat-button matStepperPrevious>Voltar</button>
+      <button mat-button matStepperNext>Próximo</button>
+    </div>
+  </mat-step>
 
+  <!-- revisao -->
+  <mat-step>
+    <ng-template matStepLabel>Revisão</ng-template>
 
+    <div class="box-botoes">
+      <button mat-button matStepperPrevious>Voltar</button>
+      <button mat-button (click)="onSubmit()">Cadastrar</button>
+    </div>
 
-      <div class="box-botoes">
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext>Próximo</button>
-      </div>
-    </mat-step>
-
-    <!-- revisao -->
-    <mat-step>
-      <ng-template matStepLabel>Revisão</ng-template>
-
-      <div class="box-botoes">
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button (click)="onSubmit()">Cadastrar</button>
-      </div>
-    </mat-step>
-
-  </mat-stepper>
+  </mat-step>
+</mat-stepper>
