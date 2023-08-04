@@ -26,6 +26,7 @@ export class PopupCadastroComponent {
   newKeywords: String[] = [];
   keywordIsLoading: boolean = true;
   newKeyword: string = '';
+  keywordsFromMetadataToRemove: String[] = [];
 
   textoDoInputTags: string = '';
 
@@ -46,7 +47,11 @@ export class PopupCadastroComponent {
   }
 
   onSubmit() {
-
+    if(this.keywordsPadrao.length == 0) {
+      this.mostrarErro();
+      return;
+    }
+    console.log(this.urlImage)
   }
 
   toSecondStep(newUrl: string) {
@@ -55,6 +60,7 @@ export class PopupCadastroComponent {
       this.isUrlValid = false;
       return;
     }
+    this.isUrlValid = true;
     this.stepper.next();
     this.getKeywords(this.urlImage)
   }
@@ -78,6 +84,7 @@ export class PopupCadastroComponent {
 
   onInputTag() {
     const categoria = (document.getElementsByName('newTag')[0] as HTMLInputElement).value;
+    if (categoria.trim() == '') return;
     this.addNewTag(categoria);
     this.newKeyword = '';
   }
@@ -98,9 +105,27 @@ export class PopupCadastroComponent {
     this.newKeywords.push(tag);
   }
 
-  onRemoveTag(tag: String) {
-    // fazer com que a string escolhida seja removida dos dois arrays
+  onRemoveTag(newTag: String) {
+    this.keywordsPadrao = this.keywordsPadrao.filter((tag) => tag != newTag);
+    if (this.newKeywords.includes(newTag)) {
+      this.newKeywords = this.newKeywords.filter((tag) => tag != newTag);
+      return;
+    }
+    this.keywordsFromMetadataToRemove.push(newTag)
   }
+
+  showError: boolean = false;
+
+  mostrarErro() {
+    this.showError = true;
+
+    setTimeout(() => {
+      this.showError = false;
+    }, 3000);
+
+  }
+
+
 
 
 }

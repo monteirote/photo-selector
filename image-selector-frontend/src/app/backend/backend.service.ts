@@ -24,5 +24,14 @@ export class BackendService{
     return this.http.get<String[]>(`${this.url}/images/get-keywords?url=${url}`)
   }
 
+  public addImagemWithTags(url: string, newTags: String[], tagsToRemove: String[]) {
+
+  }
+
+ // http://localhost:8080/api/images/cadastrar?url=
+  private addImagemToDatabase(url: string) {
+    // return this.http.post<Long>(`${this.url}/images/cadastrar?url=${url}`);
+  }
+
 
 }

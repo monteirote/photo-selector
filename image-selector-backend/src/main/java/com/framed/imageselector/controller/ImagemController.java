@@ -45,7 +45,7 @@ public class ImagemController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Void> cadastrarImagem(@RequestParam String url, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Long> cadastrarImagem(@RequestParam String url, UriComponentsBuilder uriBuilder) {
 
         Long imagemId = imagemService.addImagem(url);
 
@@ -55,7 +55,7 @@ public class ImagemController {
 
         java.net.URI uri = uriBuilder.path("/cadastrar/{id}").buildAndExpand(imagemId).toUri();
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(imagemId);
     }
 
     @GetMapping("/all-images")
