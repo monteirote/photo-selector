@@ -59,24 +59,6 @@ public class ImagemService {
         return metadataKeywords;
     }
 
-    public List<String> getKeywords(Imagem imagem) {
-        try {
-            URL url = new URL(imagem.getUrl());
-            Metadata metadata = ImageMetadataReader.readMetadata(url.openStream());
-            for (Directory directory : metadata.getDirectories()) {
-                for (Tag tag : directory.getTags()) {
-                    if (tag.getTagName().equals("Keywords")) {
-                        return Arrays.asList(tag.getDescription().split(";"));
-                    }
-                }
-            }
-        } catch (IOException | ImageProcessingException erro) {
-            System.out.println("Erro ao ler os metadados da imagem: " + erro.getMessage());
-        }
-        return Collections.emptyList();
-
-    }
-
     public List<String> getKeywordsFromUrl(String imagemUrl) {
         try {
             URL url = new URL(imagemUrl);
@@ -107,20 +89,19 @@ public class ImagemService {
             return null;
         }
 
-        List<String> palavrasChave = getKeywords(imagem);
+        List<String> palavrasChave = getKeywordsFromUrl(imagem.getUrl());
         List<Keyword> keywords = new ArrayList<>();
 
-        for (String palavra : palavrasChave) {
-            Keyword novaKeyword = keywordService.createKeyword(palavra);
-            keywords.add(novaKeyword);
-        }
+        palavrasChave.forEach( palavra -> {
+            Keyword keywordToAdd = keywordService.createKeyword(palavra);
+            keywords.add(keywordToAdd);
+        });
 
-
-        for (Keyword keyword : keywords) {
+        keywords.forEach( keyword -> {
             if (!imagem.getKeywords().contains(keyword)) {
                 imagem.addKeyword(keyword);
             }
-        }
+        });
 
         imagemRepository.save(imagem);
         return imagem.getId();
@@ -171,8 +152,6 @@ public class ImagemService {
         if (img.get().getKeywords().contains(kw)) {
             return false;
         }
-
-        
 
         img.get().addKeyword(kw);
         imagemRepository.save(img.get());

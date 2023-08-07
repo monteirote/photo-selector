@@ -18,7 +18,12 @@ export class MainToolbarComponent {
   constructor(public dialog: MatDialog) {}
 
   openCadastroPopup() {
-    this.dialog.open(PopupCadastroComponent)
+    const dialogRef = this.dialog.open(PopupCadastroComponent);
+
+    dialogRef.componentInstance.close.subscribe(() => {
+      this.dialog.closeAll();
+    });
   }
+
 
 }

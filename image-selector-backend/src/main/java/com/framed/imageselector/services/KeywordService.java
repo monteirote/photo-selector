@@ -28,15 +28,16 @@ public class KeywordService {
     }
 
     public Keyword createKeyword(String categoria) {
+        Keyword keywordToSave = null;
         Optional<Keyword> novaKeyword = keywordRepository.findByCategoria(categoria);
-        Keyword keywordToSave;
-        if (novaKeyword.isEmpty()) {           
-            keywordToSave = new Keyword(categoria.toLowerCase().replace(" ", "-"));
-            keywordToSave = keywordRepository.save(keywordToSave);
-            return keywordToSave;
+
+        if (novaKeyword.isEmpty()) {
+            keywordToSave = keywordRepository.save(new Keyword(categoria.toLowerCase()));
+        } else {
+            keywordToSave = novaKeyword.get();
         }
 
-        return null;       
+        return keywordToSave;
     }
 
     public void saveAll(List<Keyword> keywords) {
@@ -46,6 +47,5 @@ public class KeywordService {
     public void delete(Keyword keyword) {
         this.keywordRepository.delete(keyword);
     }
- 
-    
+
 }

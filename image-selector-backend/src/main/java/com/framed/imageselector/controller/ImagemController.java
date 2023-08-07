@@ -71,12 +71,12 @@ public class ImagemController {
     }
 
     @PostMapping("/add-categoria")
-    public ResponseEntity<Void> addCategoriaToImagem(@RequestParam Long id, @RequestParam String categoria) {
+    public ResponseEntity<Boolean> addCategoriaToImagem(@RequestParam Long id, @RequestParam String categoria) {
         boolean result = imagemService.addCategoriaToImagem(id, categoria);
         if (result) {
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(true);
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.badRequest().body(false);
     }
 
     @DeleteMapping("/delete-image/{id}")
