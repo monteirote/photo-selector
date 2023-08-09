@@ -1,5 +1,7 @@
+import { HttpResponseBase, HttpStatusCode } from '@angular/common/http';
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { BackendService } from 'src/app/backend/backend.service';
 
@@ -16,7 +18,8 @@ export class PopupCadastroComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: BackendService
+    private service: BackendService,
+    private _snackBar: MatSnackBar,
   ) {
     this.imageFormulario = this.formBuilder.group({
       fotoUrl: ['', [Validators.required]],
@@ -58,16 +61,25 @@ export class PopupCadastroComponent {
   onSubmit() {
     if (this.keywordsPadrao.length == 0) {
       this.mostrarErro();
-      console.log("erro")
       return;
     }
 
-    this.service.addImagemWithTags(
+    this.service.addImagemComCategorias(
       this.urlImage,
       this.newKeywords,
-      this.keywordsFromMetadataToRemove
-    );
-    console.log(this.newKeywords)
+      this.keywordsFromMetadataToRemove).subscribe(
+        (response: Boolean) => {
+          if (response == true) {
+            this._snackBar.open("aaaeeee");
+          } else {
+            this._snackBar.open("uuuu");
+          }
+        },
+        (error) => {
+          this._snackBar.open("uuuu");
+        }
+      )
+
     this.fecharDialog();
   }
 
@@ -117,11 +129,10 @@ export class PopupCadastroComponent {
       this.checagemNovas.push(keyword.toLowerCase());
     });
 
-    if (
-      this.checagemPadrao.includes(tag.toLowerCase()) ||
-      this.checagemNovas.includes(tag.toLowerCase())
-    )
+    if (this.checagemPadrao.includes(tag.toLowerCase()) || this.checagemNovas.includes(tag.toLowerCase())) {
       return;
+    }
+
     this.keywordsPadrao.push(tag);
     this.newKeywords.push(tag);
   }

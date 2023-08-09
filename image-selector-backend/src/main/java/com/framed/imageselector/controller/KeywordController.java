@@ -42,11 +42,11 @@ public class KeywordController {
     }
 
     @DeleteMapping("/deletar")
-    public ResponseEntity<Void> removeCategoriaFromImage(@RequestParam String categoria, @RequestParam Long id) {
+    public ResponseEntity<Void> removeCategoriaFromImage(@RequestParam Long id, @RequestParam String categoria) {
         Optional<Imagem> oimg = this.imagemService.findById(id);
         Optional<Keyword> okw = keywordService.findByCategoria(categoria);
         if (oimg.isEmpty() || okw.isEmpty()) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.ok().build();
         }
 
         Imagem img = oimg.get();
