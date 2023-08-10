@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { BackendService } from 'src/app/backend/backend.service';
+import { SnackbarFormularioComponent } from '../snackbar-formulario/snackbar-formulario.component';
 
 @Component({
   selector: 'app-popup-cadastro',
@@ -36,8 +37,6 @@ export class PopupCadastroComponent {
   newKeyword: string = '';
   keywordsFromMetadataToRemove: String[] = [];
 
-  textoDoInputTags: string = '';
-
   fecharDialog() {
     this.close.emit();
   }
@@ -68,19 +67,23 @@ export class PopupCadastroComponent {
       this.urlImage,
       this.newKeywords,
       this.keywordsFromMetadataToRemove).subscribe(
-        (response: Boolean) => {
-          if (response == true) {
-            this._snackBar.open("aaaeeee");
-          } else {
-            this._snackBar.open("uuuu");
-          }
+        (response: boolean) => {
+          this.exibirSnackbar(response);
         },
         (error) => {
-          this._snackBar.open("uuuu");
+          this.exibirSnackbar(false);
         }
       )
 
     this.fecharDialog();
+  }
+
+  exibirSnackbar(sucesso: boolean) {
+    if(sucesso) {
+      this._snackBar.open('Foto adicionada com sucesso!', 'Fechar');
+    } else {
+      this._snackBar.open('Erro ao adicionar foto.', 'Fechar')
+    }
   }
 
   toSecondStep(newUrl: string) {

@@ -1,5 +1,6 @@
 package com.framed.imageselector.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.framed.imageselector.models.CustomImagem;
 import com.framed.imageselector.models.CustomKeyword;
 import com.framed.imageselector.models.Imagem;
 import com.framed.imageselector.models.Keyword;
@@ -32,13 +34,13 @@ public class KeywordController {
     }
 
     @GetMapping("/exibir/{categoria}")
-    public ResponseEntity<CustomKeyword> getAllImagesFromCategoria(@PathVariable String categoria) {
+    public ResponseEntity<List<CustomImagem>> getAllImagesFromCategoria(@PathVariable String categoria) {
         Optional<Keyword> okw = this.keywordService.findByCategoria(categoria);
         if (okw.isEmpty()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         CustomKeyword ckw = new CustomKeyword(okw.get().getId(), okw.get().getCategoria(), okw.get().getImagens());
-        return ResponseEntity.ok().body(ckw);
+        return ResponseEntity.ok().body(ckw.getImagensString());
     }
 
     @DeleteMapping("/deletar")

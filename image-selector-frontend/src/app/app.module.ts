@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ImagemExpandidaComponent } from './components/imagem-expandida/imagem-expandida.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarFormularioComponent } from './components/snackbar-formulario/snackbar-formulario.component';
 
 
 
@@ -32,7 +33,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     GaleriaComponent,
     PopupCadastroComponent,
     ImagemExpandidaComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SnackbarFormularioComponent
   ],
   imports: [
     BrowserModule,

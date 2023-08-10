@@ -1,19 +1,26 @@
 <mat-toolbar class="navigation-bar">
-  <button mat-icon-button class="example-icon" (click)="toggleSidebar()" >
-    <mat-icon>menu</mat-icon>
+  <button mat-button class="icon-button" aria-label="Button with menu icon" (click)="toggleSidebar()">
+    <mat-icon aria-label="menu icon" fontIcon="menu" class="icon-size"></mat-icon>
   </button>
   <span class="logo-spacer">
-    <img src="assets/logo.png" class="logo"/>
+    <img src="assets/logo_fundopreto.png" class="logo"/>
   </span>
   <span class="example-spacer"></span>
-  <button mat-icon-button (click)="openCadastroPopup()">
-    <mat-icon>add</mat-icon>
+
+  <form class="div-search" (ngSubmit)="onSearch()">
+    <input class="search-bar" placeholder="Pesquise por categoria" type="text" id="search" name="search" (ngModel)="textToSearch">
+  </form>
+
+  <button mat-button class="icon-button" aria-label="Button with search icon">
+    <mat-icon aria-label="search icon" fontIcon="search" class="search-icon"></mat-icon>
   </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>share</mat-icon>
+
+  <button mat-button class="icon-button" aria-label="Button with add icon" (click)="openCadastroPopup()">
+    <mat-icon aria-label="add icon" fontIcon="add" class="icon-size"></mat-icon>
   </button>
+
+  <button mat-button class="icon-button" aria-label="Button with person icon">
+    <mat-icon aria-label="person icon" fontIcon="person" class="icon-size"></mat-icon>
+  </button>
+
 </mat-toolbar>

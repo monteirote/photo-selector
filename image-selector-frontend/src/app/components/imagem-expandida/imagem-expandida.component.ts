@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from 'src/app/backend/backend.service';
 import { Imagem } from 'src/app/models/imagem';
 
@@ -10,7 +10,11 @@ import { Imagem } from 'src/app/models/imagem';
 })
 export class ImagemExpandidaComponent implements OnInit {
 
-  constructor(private backendService: BackendService, private route: ActivatedRoute) {}
+  constructor(
+    private backendService: BackendService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   imageId!: any;
   imagemExibida!: Imagem;
@@ -29,8 +33,7 @@ export class ImagemExpandidaComponent implements OnInit {
         console.log(this.imagemExibida);
       },
       (error) => {
-        console.log(error)
-        return error;
+        this.router.navigateByUrl('/page-not-found')
       }
     )
   }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from 'src/app/backend/backend.service';
 import { Imagem } from 'src/app/models/imagem';
 
@@ -10,19 +10,31 @@ import { Imagem } from 'src/app/models/imagem';
 })
 export class GaleriaComponent implements OnInit {
 
-  images!: Imagem[];
 
-  constructor(private service: BackendService, private router: Router) {}
+  tag!: String | null;
+  @Input() images!: Imagem[];
+  termoDeBusca!: String;
+
+  constructor(
+    private service: BackendService,
+    private route: ActivatedRoute
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.images = await this.getAllImages();
+    this.route.paramMap.subscribe(async params => {
+      this.tag = params.get('tag')
+      if (this.tag == null) {
+        this.images = await this.getAllImages();
+      } else {
+        this.images = await this.getImagesByTag(this.tag);
+      }
+    });
   }
 
   async getAllImages(): Promise<Imagem[]> {
     return new Promise<Imagem[]>((resolve, reject) => {
       this.service.getAllImages().subscribe(
         (data: Imagem[]) => {
-          console.log(data);
           resolve(data);
         },
         (error) => {
@@ -32,4 +44,22 @@ export class GaleriaComponent implements OnInit {
     })
   }
 
+  async getImagesByTag(tag: String): Promise<Imagem[]> {
+    return new Promise<Imagem[]>((resolve, reject) => {
+      this.service.getImagesByTag(tag).subscribe(
+        (data: Imagem[]) => {
+          if (data.length === 0) {
+            this.getAllImages().then(allImages => {
+              data = allImages;
+            });
+          } else {
+            resolve(data);
+          }
+        },
+        (error) => {
+          reject(error);
+        }
+      )
+    })
+  }
 }

@@ -46,10 +46,8 @@ public class ImagemService {
             for (Directory directory : metadata.getDirectories()) {
                 for (Tag tag : directory.getTags()) {
                     String tagName = tag.getTagName();
-                    if ("Keywords".equals(tagName)) {
-                        String tagDescription = tag.getDescription();
-                        metadataKeywords.put(tagName, tagDescription);
-                    }
+                    String tagDescription = tag.getDescription();
+                    metadataKeywords.put(tagName, tagDescription);
                 }
             }
         } catch (IOException | ImageProcessingException erro) {

@@ -1,6 +1,7 @@
 mat-sidenav-container {
   height: 100%;
   overflow: auto;
+  background-color: rgb(84,84,84);
 }
 
 mat-sidenav {
@@ -74,3 +75,4 @@ mat-sidenav {
   /* margin-left: 60px; */
   align-items: center;
 }
+

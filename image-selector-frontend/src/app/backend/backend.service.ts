@@ -25,17 +25,12 @@ export class BackendService{
     return this.http.get<String[]>(`${this.urlAPI}/images/get-keywords?url=${url}`)
   }
 
-  private addImagemToDatabase(url: String): Observable<number> {
-    return this.http.post<number>(`${this.urlAPI}/images/cadastrar?url=${url}`, {});
+  public addImagemComCategorias(url: String, newKeywords: String[], trKeywords: String[]): Observable<boolean> {
+    return this.http.post<boolean>(`${this.urlAPI}/images/imagem-dto`, new ImagemDto(url, trKeywords, newKeywords));
   }
 
-  public addImagemComCategorias(url: String, newKeywords: String[], trKeywords: String[]): Observable<boolean> {
-    return this.http.post<string>(`${this.urlAPI}/images/imagem-dto`, new ImagemDto(url, trKeywords, newKeywords)).pipe(
-      map((response: string) => response.includes("sucesso")),
-      catchError(() => {
-        return of(false);
-      })
-    );
+  public getImagesByTag(tag: String) {
+    return this.http.get<Imagem[]>(`${this.urlAPI}/keywords/exibir/${tag}`);
   }
 
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,12 @@ public class ImagemController {
         this.keywordController = keywordController;
     }
 
+    @GetMapping("/raw-metadata")
+    public ResponseEntity<Map<String, String>> getImageMetadata2(@RequestParam String url) {
+        Map<String, String> result = imagemService.extractAllMetadataFromImage(url);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("/get-keywords")
     public ResponseEntity<List<String>> getImageMetadata(@RequestParam String url) {
         List<String> result = imagemService.getKeywordsFromUrl(url);
@@ -66,14 +73,14 @@ public class ImagemController {
     }
     
     @PostMapping("/imagem-dto")
-    public ResponseEntity<String> receiveImagemDto(@RequestBody ImagemDto imagemDto) {
+    public ResponseEntity<Boolean> receiveImagemDto(@RequestBody ImagemDto imagemDto) {
         Long imagemId = this.cadastrarImagem(imagemDto.getImagemUrl(), UriComponentsBuilder.newInstance()).getBody();
         if (imagemId == null) {
-            return ResponseEntity.ok().body("erro");
+            return ResponseEntity.ok().body(false);
         }
         Arrays.asList(imagemDto.getTagsToRemove()).forEach(tag -> this.keywordController.removeCategoriaFromImage(imagemId, tag));
         Arrays.asList(imagemDto.getTagsToAdd()).forEach(tag -> this.imagemService.addCategoriaToImagem(imagemId, tag));
-        return ResponseEntity.ok().body("sucesso");
+        return ResponseEntity.ok().body(true);
     }
 
     @GetMapping("/all-images")
