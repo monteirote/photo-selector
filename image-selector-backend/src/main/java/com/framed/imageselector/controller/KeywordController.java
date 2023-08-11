@@ -1,5 +1,6 @@
 package com.framed.imageselector.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,17 @@ public class KeywordController {
         return ResponseEntity.ok().body(null);
         
     }
+
+
+    @GetMapping("/categorias")
+    public ResponseEntity<String[]> getAllCategorias() {
+        List<String> categoriaString = new ArrayList<>();
+        this.keywordService.getAllKeywords().forEach(keyword -> categoriaString.add(keyword.getCategoria()));
+        String[] categoriasArray = categoriaString.toArray(new String[0]);
+        return ResponseEntity.ok().body(categoriasArray);
+    }
+
+    
 
     
 

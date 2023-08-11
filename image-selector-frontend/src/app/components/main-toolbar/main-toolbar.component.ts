@@ -19,6 +19,7 @@ export class MainToolbarComponent {
 
   searchFormulario: FormGroup;
   textToSearch: String = '';
+  isSearchBarShown = false;
 
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private route: Router) {
     this.searchFormulario = this.formBuilder.group({
@@ -34,14 +35,22 @@ export class MainToolbarComponent {
     });
   }
 
-  onSearch() {
+  onInputSearch() {
     const searchText = (
       document.getElementsByName('search')[0] as HTMLInputElement
     ).value;
     if (searchText == '') return;
     this.route.navigateByUrl("/buscar/" + searchText);
     (document.getElementsByName('search')[0] as HTMLInputElement).value = "";
-    // (document.getElementsByName('search')[0] as HTMLInputElement).blur();
+    (document.getElementsByName('search')[0] as HTMLInputElement).blur();
+  }
+
+  onSearchIcon() {
+    this.isSearchBarShown = !this.isSearchBarShown;
+  }
+
+  goToAdvancedSearch() {
+    this.route.navigateByUrl("/busca-avancada");
   }
 
 

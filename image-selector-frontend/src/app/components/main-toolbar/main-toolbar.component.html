@@ -1,17 +1,26 @@
 <mat-toolbar class="navigation-bar">
+
   <button mat-button class="icon-button" aria-label="Button with menu icon" (click)="toggleSidebar()">
     <mat-icon aria-label="menu icon" fontIcon="menu" class="icon-size"></mat-icon>
   </button>
-  <span class="logo-spacer">
+
+  <a class="logo-spacer" href="http://localhost:4200">
     <img src="assets/logo_fundopreto.png" class="logo"/>
-  </span>
+  </a>
   <span class="example-spacer"></span>
 
-  <form class="div-search" (ngSubmit)="onSearch()">
-    <input class="search-bar" placeholder="Pesquise por categoria" type="text" id="search" name="search" (ngModel)="textToSearch">
-  </form>
+  <div *ngIf="isSearchBarShown" class="div-searching">
+    <form class="div-search" (ngSubmit)="onInputSearch()">
+      <input class="search-bar" placeholder="Pesquise por categoria" type="text" id="search" name="search" (ngModel)="textToSearch">
+    </form>
+    <div>ou</div>
+    <button class="advanced-search" (click)="goToAdvancedSearch()">
+      <div style="margin-bottom: 0px;">Busca</div>
+      <div style="margin-top: 0px;">Avançada</div>
+    </button>
+  </div>
 
-  <button mat-button class="icon-button" aria-label="Button with search icon">
+  <button mat-button class="icon-button" aria-label="Button with search icon" (click)="onSearchIcon()">
     <mat-icon aria-label="search icon" fontIcon="search" class="search-icon"></mat-icon>
   </button>
 

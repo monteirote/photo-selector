@@ -23,6 +23,7 @@ import { ImagemExpandidaComponent } from './components/imagem-expandida/imagem-e
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarFormularioComponent } from './components/snackbar-formulario/snackbar-formulario.component';
+import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 
 
 
@@ -34,7 +35,8 @@ import { SnackbarFormularioComponent } from './components/snackbar-formulario/sn
     PopupCadastroComponent,
     ImagemExpandidaComponent,
     PageNotFoundComponent,
-    SnackbarFormularioComponent
+    SnackbarFormularioComponent,
+    AdvancedSearchComponent
   ],
   imports: [
     BrowserModule,

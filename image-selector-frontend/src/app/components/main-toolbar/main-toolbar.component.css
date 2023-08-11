@@ -20,7 +20,7 @@
 }
 
 .icon {
-  font-size:30px
+  font-size: 30px
 }
 
 .icon-button {
@@ -30,9 +30,9 @@
 }
 
 .icon-size {
-  height:35px !important;
-  width:35px !important;
-  font-size:35px !important;
+  height: 35px !important;
+  width: 35px !important;
+  font-size: 35px !important;
   color: white;
 }
 
@@ -51,18 +51,38 @@
   display: flex;
   text-align: center;
   font-size: 20px;
-  background-color: rgb(84,84,84);
+  background-color: rgb(84, 84, 84);
   color: white;
   border: none;
+  margin-right: 10px;
 }
 
 .search-icon {
-  height:32px !important;
-  width:32px !important;
-  font-size:32px !important;
+  height: 32px !important;
+  width: 32px !important;
+  font-size: 32px !important;
   color: white;
 }
 
 ::placeholder {
-  color: rgb(193,193,193);
+  color: rgb(193, 193, 193);
+}
+
+.div-searching {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white
+}
+
+.advanced-search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  align-items: center;
+  background-color: rgb(25, 25, 25);
+  color: white;
+  border: none;
+  font-weight: bold;
 }

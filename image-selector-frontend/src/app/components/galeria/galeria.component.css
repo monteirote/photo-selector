@@ -1,7 +1,6 @@
 .imagens-container {
   display: flex;
   justify-content: space-around;
-  margin-top: 3px;
 }
 
 ngx-masonry {

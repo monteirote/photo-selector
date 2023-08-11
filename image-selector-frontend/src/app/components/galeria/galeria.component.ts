@@ -47,11 +47,10 @@ export class GaleriaComponent implements OnInit {
   async getImagesByTag(tag: String): Promise<Imagem[]> {
     return new Promise<Imagem[]>((resolve, reject) => {
       this.service.getImagesByTag(tag).subscribe(
-        (data: Imagem[]) => {
-          if (data.length === 0) {
-            this.getAllImages().then(allImages => {
-              data = allImages;
-            });
+        async (data: Imagem[]) => {
+          if (data.length == 0) {
+            data = await this.getAllImages();
+            resolve(data);
           } else {
             resolve(data);
           }
