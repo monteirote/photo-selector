@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +44,7 @@ public class KeywordController {
         return ResponseEntity.ok().body(ckw.getImagensString());
     }
 
-    @DeleteMapping("/deletar")
+    @PutMapping("/deletar")
     public ResponseEntity<Void> removeCategoriaFromImage(@RequestParam Long id, @RequestParam String categoria) {
         Optional<Imagem> oimg = this.imagemService.findById(id);
         Optional<Keyword> okw = keywordService.findByCategoria(categoria);

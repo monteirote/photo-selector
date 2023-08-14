@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Imagem } from '../models/imagem';
 import { ImagemDto } from '../models/imagemDto';
 
@@ -32,6 +32,29 @@ export class BackendService{
   public getImagesByTag(tag: String) {
     return this.http.get<Imagem[]>(`${this.urlAPI}/keywords/exibir/${tag}`);
   }
+
+  public getAllCategorias() {
+    return this.http.get<String[]>(`${this.urlAPI}/keywords`);
+  }
+
+  public getImagesByTaglist(tags: String[]) {
+    let urlFormatada: string = `${this.urlAPI}/images/search-with-tags?`;
+    tags.forEach((tag, index) => {
+
+      if (index > 0) {
+        urlFormatada += '&';
+      }
+
+      urlFormatada += `tag=${tag}`;
+      return this.http.get(urlFormatada);
+    });
+  }
+
+  public addTagToImagem(imagemId: number, tag: String) {
+    return this.http.post(`${this.urlAPI}/images/add-categoria?id=${imagemId}&categoria=${tag}`, {})
+  }
+
+
 
 
 

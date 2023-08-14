@@ -3,6 +3,7 @@ package com.framed.imageselector.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -158,6 +159,38 @@ public class ImagemService {
 
     public void save(Imagem imagem) {
         this.imagemRepository.save(imagem);
+    }
+
+    public Optional<List<Imagem>> findImagemWithTags(List<String> tags) {
+
+        List<Keyword> keywords = new ArrayList<>();
+
+        tags.forEach(tag -> {
+            Optional<Keyword> kw = this.keywordService.findByCategoria(tag);
+            if (kw.isPresent()) {
+                keywords.add(kw.get());
+            }
+        });
+
+        if (tags.size() != keywords.size()) {
+            return Optional.empty();
+        }
+
+        List<Imagem> results = new ArrayList<>();
+
+        getAllImages().forEach(image -> {
+            Collection<Keyword> imageKeywords = image.getKeywords();
+
+            if(imageKeywords.containsAll(keywords)) {
+                results.add(image);
+            }
+        });
+        
+        if (results.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(results);
     }
 
 

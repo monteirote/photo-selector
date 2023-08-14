@@ -141,16 +141,28 @@ public class ImagemController {
     return ResponseEntity.ok().build();
 }
 
-@GetMapping("/imagem/{id}")
-public ResponseEntity<CustomImagem> findById(@PathVariable Long id) {
-    Optional<Imagem> img = this.imagemService.findById(id);
-    if (img.isPresent()) {
-        CustomImagem result = new CustomImagem(img.get().getId(), img.get().getUrl(), img.get().getKeywords());
-        return ResponseEntity.ok().body(result);
-    } else {
-        return ResponseEntity.badRequest().body(null);
+    @GetMapping("/imagem/{id}")
+    public ResponseEntity<CustomImagem> getById(@PathVariable Long id) {
+        Optional<Imagem> img = this.imagemService.findById(id);
+        if (img.isPresent()) {
+            CustomImagem result = new CustomImagem(img.get().getId(), img.get().getUrl(), img.get().getKeywords());
+            return ResponseEntity.ok().body(result);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
-}
+
+    @GetMapping("/search-with-tags")
+    public ResponseEntity<CustomImagem[]> getByTags(@RequestParam List<String> tag) {
+        Optional<List<Imagem>> result = this.imagemService.findImagemWithTags(tag);
+        if (result.isPresent()) {
+            List<CustomImagem> resultToShow = new ArrayList<>();
+            result.get().forEach(imagem -> resultToShow.add(new CustomImagem(imagem.getId(), imagem.getUrl(), imagem.getKeywords())));
+            return ResponseEntity.ok().body(resultToShow.toArray(new CustomImagem[0]));
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 
 }
