@@ -1,6 +1,7 @@
 .imagens-container {
   display: flex;
   justify-content: space-around;
+  margin-top: 200px;
 }
 
 ngx-masonry {
@@ -9,11 +10,13 @@ ngx-masonry {
 }
 
 .masonry-item {
-  flex-basis: calc(10% - 100px);
+  flex-basis: calc(33% - 100px);
   border: none;
 }
 
 .image-item {
-  height: 180px;
+  height: 514px;
+  width: 383px;
+  fill: true;
   border-radius: 5px;
 }

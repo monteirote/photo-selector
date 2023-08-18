@@ -25,6 +25,7 @@ export class GaleriaComponent implements OnInit {
       this.tag = params.get('tag')
       if (this.tag == null) {
         this.images = await this.getAllImages();
+        console.log(this.images)
       } else {
         this.images = await this.getImagesByTag(this.tag);
       }

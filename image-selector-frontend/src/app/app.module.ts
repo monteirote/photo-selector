@@ -26,6 +26,7 @@ import { SnackbarFormularioComponent } from './components/snackbar-formulario/sn
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 import { ExemploComponent } from './components/exemplo/exemplo.component';
 import { ColecaoPesquisaComponent } from './components/colecao-pesquisa/colecao-pesquisa.component';
+import { HomeComponentComponent } from './components/home-component/home-component.component';
 
 
 
@@ -40,7 +41,8 @@ import { ColecaoPesquisaComponent } from './components/colecao-pesquisa/colecao-
     SnackbarFormularioComponent,
     AdvancedSearchComponent,
     ExemploComponent,
-    ColecaoPesquisaComponent
+    ColecaoPesquisaComponent,
+    HomeComponentComponent
   ],
   imports: [
     BrowserModule,
