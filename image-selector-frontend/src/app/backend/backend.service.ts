@@ -33,6 +33,10 @@ export class BackendService{
     return this.http.get<Imagem[]>(`${this.urlAPI}/keywords/exibir/${tag}`);
   }
 
+  public startDataBase() {
+    this.http.get(`${this.urlAPI}/images/start-db`);
+  }
+
 
 
 }

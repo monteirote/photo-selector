@@ -1,3 +1,4 @@
+import { BackendService } from 'src/app/backend/backend.service';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupCadastroComponent } from '../popup-cadastro/popup-cadastro.component';
@@ -21,7 +22,7 @@ export class MainToolbarComponent {
   textToSearch: String = '';
   isSearchBarShown = false;
 
-  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private route: Router) {
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private route: Router, private service: BackendService) {
     this.searchFormulario = this.formBuilder.group({
       fotoUrl: ['', [Validators.required]],
     });
@@ -50,8 +51,10 @@ export class MainToolbarComponent {
   }
 
   goToAdvancedSearch() {
-    this.route.navigateByUrl("/busca-avancada");
+    this.service.startDataBase();
   }
+
+
 
 
 }
