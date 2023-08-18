@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Imagem } from '../models/imagem';
 import { ImagemDto } from '../models/imagemDto';
 
@@ -34,7 +34,14 @@ export class BackendService{
   }
 
   public startDataBase() {
-    this.http.get(`${this.urlAPI}/images/start-db`);
+    return this.http.get(`${this.urlAPI}/images/start-bd`).subscribe(
+      (data) => {
+        console.log(data)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 

@@ -154,8 +154,9 @@ public ResponseEntity<CustomImagem> findById(@PathVariable Long id) {
 
     // METODO DE TESTE, REMOVER QUANDO NECESSARIO
     @GetMapping("/start-bd")
-    public void adicionarNoBd() {
+    public ResponseEntity<List<Long>> adicionarNoBd() {
         List<String> urls = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
         urls.add("https://cdn.46graus.com/files/portfolio/2609/1ce67f7c-87be-497c-b7d6-f44999871ce7/original_f0992e7c-1d25-407f-b68c-e3919fd941c3.jpg");
         urls.add("https://cdn.46graus.com/files/portfolio/2609/1ce67f7c-87be-497c-b7d6-f44999871ce7/original_94793a46-e4d8-4e67-b705-8d917410dbb3.jpg");
         urls.add("https://cdn.46graus.com/files/portfolio/2609/1ce67f7c-87be-497c-b7d6-f44999871ce7/original_1b12434e-9abd-48d0-bdb7-2eed607f3e7c.jpg");
@@ -165,7 +166,7 @@ public ResponseEntity<CustomImagem> findById(@PathVariable Long id) {
         urls.add("https://cdn-sites-images.46graus.com/files/portfolio/2609/5345eabe-7de3-4773-bb5c-59789c85e7c2/300_850014d9-e700-422b-9c76-0e92c185c06e.jpg");
         urls.add("https://cdn-sites-images.46graus.com/files/portfolio/2609/5345eabe-7de3-4773-bb5c-59789c85e7c2/300_c8ad99ca-3f3d-4db0-8ce2-f7912da18e2c.jpg");
         urls.add("https://cdn-sites-images.46graus.com/files/portfolio/2609/5951e885-77b9-4975-a8f4-15531b09422f/300_f7365a5a-e7f9-4c4a-b1f0-8c1b37c104be.jpg");
-        urls.forEach(url -> cadastrarImagem(url, UriComponentsBuilder.newInstance()));
+        return ResponseEntity.ok().body(ids);
     }
 
 }
