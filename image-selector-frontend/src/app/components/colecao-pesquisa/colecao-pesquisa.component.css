@@ -1,6 +1,7 @@
 
 .fundo{
-  background: #191919;
+  background: url("src/assets/fundo_colecao.svg");
+  background-color: #191919;
   background-size: cover;
 
   width: 100%;
